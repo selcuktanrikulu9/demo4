@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /*.php$
+Disallow: /temp/
+
+# Sitemap
+Sitemap: https://www.malatyamobilya.com/sitemap.xml
+
+# Crawl-delay for bots
+Crawl-delay: 1
