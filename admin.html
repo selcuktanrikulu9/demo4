@@ -541,7 +541,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="nav-item" onclick="showPage('seo')"><span class="nav-icon">🔍</span> SEO Ayarları</div>
 
     <div class="nav-section">Araçlar</div>
-    <div class="nav-item" onclick="showPage('export')"><span class="nav-icon">📤</span> Kod Dışa Aktar</div>
+    <div class="nav-item" onclick="showPage('export')"><span class="nav-icon">🚀</span> GitHub'a Yayınla</div>
     <div class="nav-item" onclick="showPage('ayarlar')"><span class="nav-icon">⚙️</span> Panel Ayarları</div>
 
     <div class="sidebar-footer">
@@ -588,7 +588,7 @@ textarea { resize: vertical; min-height: 80px; }
           <button class="btn btn-primary" onclick="showPage('galeri')">🖼️ Galeri Düzenle</button>
           <button class="btn btn-ghost" onclick="showPage('seo')">🔍 SEO Güncelle</button>
           <button class="btn btn-ghost" onclick="showPage('firma')">🏢 Firma Bilgileri</button>
-          <button class="btn btn-ghost" onclick="showPage('export')">📤 Kodu Dışa Aktar</button>
+          <button class="btn btn-ghost" onclick="showPage('export')">🚀 GitHub'a Yayınla</button>
         </div>
       </div>
       <div class="card">
@@ -597,7 +597,7 @@ textarea { resize: vertical; min-height: 80px; }
           <b style="color:var(--anthracite)">1.</b> Firma bilgilerini güncelleyin (telefon, e-posta, adres, WhatsApp). <br>
           <b style="color:var(--anthracite)">2.</b> Her sayfa için SEO başlıkları ve açıklamalarını düzenleyin. <br>
           <b style="color:var(--anthracite)">3.</b> Galeri görsellerini gerçek fotoğraflarınızla değiştirin. <br>
-          <b style="color:var(--anthracite)">4.</b> "Kod Dışa Aktar" sayfasından güncel HTML kodlarını kopyalayın ve dosyalara uygulayın.
+          <b style="color:var(--anthracite)">4.</b> "GitHub'a Yayınla" sayfasından token gir ve değişiklikleri direkt repoya yayınla.
         </div>
       </div>
     </div>
@@ -725,32 +725,42 @@ textarea { resize: vertical; min-height: 80px; }
       <div id="seo-tab-contents"></div>
     </div>
 
-    <!-- EXPORT -->
+    <!-- GITHUB PUBLISH -->
     <div class="page" id="page-export">
       <div class="page-header">
-        <div><h1>Kod Dışa Aktar</h1><p>Değişikliklerinizi HTML dosyalarına uygulayın.</p></div>
+        <div><h1>GitHub'a Yayınla</h1><p>Değişiklikler direkt <b>selcuktanrikulu9/demo4</b> reposuna kaydedilir.</p></div>
       </div>
-      <div class="card">
-        <div class="card-title"><span>📄</span> Firma Bilgileri — Tüm Sayfalara Uygulama</div>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px">Tüm HTML dosyalarında aşağıdaki değerleri bulup-değiştirin (CTRL+H ile):</p>
-        <div id="export-firma-table"></div>
+
+      <div class="card" id="github-token-card">
+        <div class="card-title"><span>🔑</span> GitHub Token</div>
+        <div id="token-status-msg" style="font-size:0.88rem;margin-bottom:14px;color:var(--text-muted)">Token girilmedi. Değişiklikleri yayınlamak için GitHub Personal Access Token gerekli.</div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <label>Personal Access Token (repo yetkisi)</label>
+            <input type="password" id="gh-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+          </div>
+          <button class="btn btn-primary" style="margin-bottom:14px" onclick="saveGhToken()">🔑 Token Kaydet</button>
+        </div>
+        <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.7">
+          github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → <b>repo</b> yetkisi seç
+        </div>
       </div>
+
       <div class="card">
-        <div class="card-title"><span>🔍</span> SEO — index.html &lt;head&gt; Kodu</div>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px">index.html dosyasındaki &lt;head&gt; bölümüne yapıştırın:</p>
-        <div class="code-block" id="export-seo-index"></div>
-        <button class="btn btn-ghost copy-btn" onclick="copyCode('export-seo-index')">📋 Kopyala</button>
+        <div class="card-title"><span>🚀</span> Dosyaları Yayınla</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px">Seçtiğin dosyalar GitHub'daki mevcut içeriğin üzerine yazılır. Site 1-2 dakikada güncellenir.</p>
+        <div id="publish-files-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px"></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-lg" onclick="publishAll()">🚀 Tümünü Yayınla</button>
+          <button class="btn btn-ghost" onclick="publishSelected()">✅ Seçilileri Yayınla</button>
+        </div>
       </div>
+
       <div class="card">
-        <div class="card-title"><span>🖼️</span> Galeri — galeri.html Kodu</div>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px">galeri.html dosyasındaki .gallery-grid div'inin içine yapıştırın:</p>
-        <div class="code-block" id="export-gallery-code"></div>
-        <button class="btn btn-ghost copy-btn" onclick="copyCode('export-gallery-code')">📋 Kopyala</button>
-      </div>
-      <div class="card">
-        <div class="card-title"><span>🗺️</span> sitemap.xml Kodu</div>
-        <div class="code-block" id="export-sitemap"></div>
-        <button class="btn btn-ghost copy-btn" onclick="copyCode('export-sitemap')">📋 Kopyala</button>
+        <div class="card-title"><span>📋</span> Yayın Günlüğü</div>
+        <div id="publish-log" style="font-size:0.82rem;font-family:monospace;display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto">
+          <span style="color:var(--text-muted)">Henüz yayın yapılmadı.</span>
+        </div>
       </div>
     </div>
 
@@ -1347,8 +1357,212 @@ function resetData() {
 }
 
 // ============================================================
-// HELPERS
+// GITHUB API
 // ============================================================
+const GH_OWNER = 'selcuktanrikulu9';
+const GH_REPO  = 'demo4';
+const GH_BRANCH = 'main';
+const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents`;
+
+function getGhToken() { return localStorage.getItem('mm_gh_token') || ''; }
+
+function saveGhToken() {
+  const t = document.getElementById('gh-token-input').value.trim();
+  if (!t) { toast('Token boş olamaz.', 'error'); return; }
+  localStorage.setItem('mm_gh_token', t);
+  document.getElementById('gh-token-input').value = '';
+  refreshTokenStatus();
+  toast('Token kaydedildi!', 'success');
+}
+
+function refreshTokenStatus() {
+  const t = getGhToken();
+  const el = document.getElementById('token-status-msg');
+  if (!el) return;
+  if (t) {
+    el.innerHTML = '<span style="color:var(--green);font-weight:600">✅ Token mevcut</span> — Yayınlamaya hazırsın.';
+  } else {
+    el.innerHTML = '<span style="color:#E67E22;font-weight:600">⚠️ Token girilmedi</span> — Değişiklikleri yayınlamak için token gerekli.';
+  }
+}
+
+// Dosya içeriklerini oluştur
+function buildFileContents() {
+  const f = state.firma;
+  const files = {};
+
+  // Her HTML dosyası için firma bilgilerini güncelle
+  const htmlFiles = [
+    'index.html','hakkimizda.html','hizmetlerimiz.html',
+    'projelerimiz.html','galeri.html','blog.html',
+    'teklif-al.html','iletisim.html'
+  ];
+
+  htmlFiles.forEach(filename => {
+    const key = filename.replace('.html','');
+    const seo = state.seo[key] || {};
+    // Basit template — gerçek dosyaların mevcut içeriğini GitHub'dan çekip güncelleyeceğiz
+    files[filename] = { type: 'update-meta', seo, firma: f };
+  });
+
+  // sitemap.xml
+  const today = new Date().toISOString().split('T')[0];
+  files['sitemap.xml'] = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${Object.values(state.seo).map(p => `  <url>
+    <loc>https://${f.domain}/${p.file === 'index.html' ? '' : p.file}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${p.file === 'index.html' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+  return files;
+}
+
+// GitHub'dan dosyayı çek, güncelle, geri yaz
+async function updateGithubFile(path, updatedContent, token) {
+  // Mevcut dosyayı al (SHA için)
+  const getRes = await fetch(`${GH_API}/${path}?ref=${GH_BRANCH}`, {
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  });
+
+  let sha = null;
+  let existingContent = '';
+
+  if (getRes.ok) {
+    const data = await getRes.json();
+    sha = data.sha;
+    existingContent = atob(data.content.replace(/\n/g, ''));
+  }
+
+  // Firma bilgilerini güncelle
+  let newContent = existingContent || updatedContent;
+  const f = state.firma;
+
+  // Telefon
+  newContent = newContent.replace(/0555 111 22 33/g, f.phone);
+  newContent = newContent.replace(/905551112233/g, f.wa);
+  newContent = newContent.replace(/info@firmaadi\.com/g, f.email);
+  newContent = newContent.replace(/teklif@firmaadi\.com/g, f.email2);
+  newContent = newContent.replace(/malatyamobilya\.com/g, f.domain);
+  newContent = newContent.replace(/Çarşıbaşı Mah\. Mobilyacılar Çarşısı No:15, Yeşilyurt \/ Malatya/g, f.address);
+  newContent = newContent.replace(/Çarşıbaşı Mah\. No:15, Yeşilyurt \/ Malatya/g, f.address);
+
+  // SEO meta güncellemesi
+  const fileKey = path.replace('.html','');
+  const seo = state.seo[fileKey];
+  if (seo && existingContent) {
+    newContent = newContent.replace(/<title>[^<]*<\/title>/, `<title>${seo.title}</title>`);
+    newContent = newContent.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${seo.desc}">`);
+    newContent = newContent.replace(/<meta name="keywords"[^>]*>/, `<meta name="keywords" content="${seo.keywords}">`);
+  }
+
+  // Galeri güncelle
+  if (path === 'galeri.html' && existingContent) {
+    const galleryHTML = state.gallery.map(item =>
+      `      <div class="gallery-item fade-in" data-cat="${item.cat}">\n        <img src="${item.url}" alt="${item.alt}" loading="lazy">\n        <div class="gallery-item-overlay">🔍</div>\n      </div>`
+    ).join('\n');
+    newContent = newContent.replace(
+      /(<div class="gallery-grid">)([\s\S]*?)(<\/div>\s*<!-- Lightbox)/,
+      `$1\n${galleryHTML}\n    $3`
+    );
+  }
+
+  // Base64 encode
+  const encoded = btoa(unescape(encodeURIComponent(newContent)));
+
+  const body = {
+    message: `Admin panel: ${path} güncellendi`,
+    content: encoded,
+    branch: GH_BRANCH
+  };
+  if (sha) body.sha = sha;
+
+  const putRes = await fetch(`${GH_API}/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  return putRes.ok;
+}
+
+function addLog(msg, ok) {
+  const log = document.getElementById('publish-log');
+  if (!log) return;
+  if (log.querySelector('span[style*="text-muted"]')) log.innerHTML = '';
+  const el = document.createElement('div');
+  el.style.cssText = `color:${ok ? 'var(--green)' : 'var(--red)'};padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.05)`;
+  el.textContent = `${ok ? '✅' : '❌'} [${new Date().toLocaleTimeString('tr-TR')}] ${msg}`;
+  log.prepend(el);
+}
+
+function renderPublishList() {
+  const list = document.getElementById('publish-files-list');
+  if (!list) return;
+  const files = [
+    { path: 'index.html', label: 'Ana Sayfa', icon: '🏠' },
+    { path: 'hakkimizda.html', label: 'Hakkımızda', icon: '👥' },
+    { path: 'hizmetlerimiz.html', label: 'Hizmetlerimiz', icon: '🔧' },
+    { path: 'projelerimiz.html', label: 'Projelerimiz', icon: '📁' },
+    { path: 'galeri.html', label: 'Galeri', icon: '🖼️' },
+    { path: 'blog.html', label: 'Blog', icon: '📝' },
+    { path: 'teklif-al.html', label: 'Teklif Al', icon: '📋' },
+    { path: 'iletisim.html', label: 'İletişim', icon: '📞' },
+    { path: 'sitemap.xml', label: 'sitemap.xml', icon: '🗺️' },
+  ];
+  list.innerHTML = files.map(f => `
+    <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--cream);border-radius:8px;cursor:pointer;font-size:0.88rem">
+      <input type="checkbox" name="pub-file" value="${f.path}" checked style="accent-color:var(--wood-mid);width:16px;height:16px">
+      <span>${f.icon}</span>
+      <span style="font-weight:500">${f.path}</span>
+      <span style="color:var(--text-muted);font-size:0.78rem">${f.label}</span>
+      <span id="pub-status-${f.path.replace('.','_')}" style="margin-left:auto;font-size:0.75rem"></span>
+    </label>`).join('');
+}
+
+async function publishAll() {
+  document.querySelectorAll('input[name="pub-file"]').forEach(cb => cb.checked = true);
+  await publishSelected();
+}
+
+async function publishSelected() {
+  const token = getGhToken();
+  if (!token) { toast('Önce GitHub Token kaydedin!', 'error'); return; }
+
+  const checked = Array.from(document.querySelectorAll('input[name="pub-file"]:checked')).map(cb => cb.value);
+  if (!checked.length) { toast('En az bir dosya seçin.', 'error'); return; }
+
+  toast('Yayınlanıyor...', 'success');
+
+  for (const path of checked) {
+    const statusEl = document.getElementById('pub-status-' + path.replace('.', '_'));
+    if (statusEl) statusEl.textContent = '⏳';
+    try {
+      const ok = await updateGithubFile(path, '', token);
+      if (statusEl) statusEl.textContent = ok ? '✅' : '❌';
+      addLog(`${path} ${ok ? 'başarıyla yayınlandı' : 'yayınlanamadı'}`, ok);
+    } catch(e) {
+      if (statusEl) statusEl.textContent = '❌';
+      addLog(`${path} hata: ${e.message}`, false);
+    }
+    // Rate limit için kısa bekleme
+    await new Promise(r => setTimeout(r, 400));
+  }
+  toast('Yayın tamamlandı! Site 1-2 dakika içinde güncellenir.', 'success');
+}
+
+function renderExport() {
+  refreshTokenStatus();
+  renderPublishList();
+}
+
+
 function updateDashboardStats() {
   document.getElementById('stat-gallery').textContent = state.gallery.length;
   const scores = Object.values(state.seo).map(p => calcSeoScore(p));
