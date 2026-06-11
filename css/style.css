@@ -883,6 +883,7 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
+  align-items: start;
 }
 .blog-card {
   background: white;
@@ -890,16 +891,45 @@ footer {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
 }
 .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.blog-card-img {
+.blog-card-img-wrap {
   width: 100%;
   aspect-ratio: 16/9;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cream2), var(--cream));
+  flex-shrink: 0;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blog-card-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
 }
-.blog-card-body { padding: 24px; }
-.blog-meta { display: flex; gap: 12px; margin-bottom: 10px; }
+.blog-card:hover .blog-card-img { transform: scale(1.04); }
+.blog-card-img-wrap .img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--cream2), var(--cream));
+}
+.blog-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.blog-meta { display: flex; gap: 12px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
 .blog-cat {
   font-size: 0.72rem;
   font-weight: 700;
@@ -909,8 +939,9 @@ footer {
   background: rgba(160,120,74,0.1);
   padding: 3px 10px;
   border-radius: 50px;
+  white-space: nowrap;
 }
-.blog-date { font-size: 0.78rem; color: #9E9488; }
+.blog-date { font-size: 0.78rem; color: #9E9488; white-space: nowrap; }
 .blog-card h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem;
@@ -919,8 +950,8 @@ footer {
   margin-bottom: 10px;
   line-height: 1.4;
 }
-.blog-card p { font-size: 0.88rem; color: #7A6A58; line-height: 1.65; margin-bottom: 16px; }
-.blog-link { font-size: 0.85rem; font-weight: 600; color: var(--wood-mid); }
+.blog-card p { font-size: 0.88rem; color: #7A6A58; line-height: 1.65; margin-bottom: 16px; flex: 1; }
+.blog-link { font-size: 0.85rem; font-weight: 600; color: var(--wood-mid); margin-top: auto; display: inline-block; }
 .blog-link:hover { color: var(--wood-dark); }
 
 /* ===================================================
