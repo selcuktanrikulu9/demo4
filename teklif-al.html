@@ -9,18 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <meta name="description" content="Malatya mobilya teklif formu. Mutfak dolabı, gardırop, TV ünitesi ve özel mobilya için ücretsiz keşif ve fiyat teklifi alın. 24 saat içinde dönüş garantisi.">
   <meta name="keywords" content="Malatya mobilya teklif, Malatya mutfak dolabı fiyatı, Malatya gardırop fiyatı, Malatya özel ölçü mobilya fiyat">
-  <link rel="canonical" href="https://www.www.www.www.malatyamobilya.com/teklif-al.html">
+  <link rel="canonical" href="https://www.malatyamobilya.com/teklif-al.html">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .smtp-info { background:var(--cream); border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:20px 24px; margin-top:32px; }
-    .smtp-info h5 { font-size:0.85rem; color:var(--charcoal); margin-bottom:12px; font-family:var(--font-body); }
-    .smtp-fields { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .smtp-field { display:flex; flex-direction:column; gap:4px; }
-    .smtp-field label { font-size:0.72rem; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.08em; }
-    .smtp-field input { padding:8px 12px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-size:0.85rem; color:var(--charcoal); background:var(--white); }
-    .smtp-field input:focus { outline:none; border-color:var(--wood-mid); }
-    .smtp-note { font-size:0.75rem; color:var(--gray-400); margin-top:8px; }
-    @media(max-width:640px){ .smtp-fields{grid-template-columns:1fr} }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--cream) inset !important;
+  -webkit-text-fill-color: var(--anthracite) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+    @media(max-width:640px){ }
   </style>
 </head>
 <body>
@@ -157,39 +158,6 @@
           </div>
         </div>
 
-        <!-- SMTP Settings (admin config area) -->
-        <div class="smtp-info">
-          <h5>🔧 E-posta Sunucu Ayarları (Yönetici)</h5>
-          <div class="smtp-fields">
-            <div class="smtp-field">
-              <label>SMTP Host</label>
-              <input type="text" placeholder="mail.firmaadi.com" id="smtp-host">
-            </div>
-            <div class="smtp-field">
-              <label>SMTP Port</label>
-              <input type="text" placeholder="587" id="smtp-port">
-            </div>
-            <div class="smtp-field">
-              <label>SMTP Kullanıcı Adı</label>
-              <input type="text" placeholder="info@bozoglanm.net" id="smtp-user">
-            </div>
-            <div class="smtp-field">
-              <label>SMTP Şifre</label>
-              <input type="password" placeholder="••••••••" id="smtp-pass">
-            </div>
-            <div class="smtp-field">
-              <label>Alıcı E-posta 1</label>
-              <input type="text" value="info@bozoglanm.net" id="smtp-to1">
-            </div>
-            <div class="smtp-field">
-              <label>Alıcı E-posta 2</label>
-              <input type="text" value="teklif@bozoglan.net" id="smtp-to2">
-            </div>
-          </div>
-          <p class="smtp-note">⚠️ Bu alanlar sunucu tarafında PHP/Node.js mailer ile entegre edilmelidir. Formdan gelen tüm talepler yukarıdaki adreslere iletilir.</p>
-        </div>
-      </div>
-
       <!-- Sidebar -->
       <div style="display:flex;flex-direction:column;gap:20px">
         <div style="background:var(--charcoal);border-radius:var(--radius-md);padding:28px;color:white" class="fade-in">
@@ -203,9 +171,9 @@
               <span style="width:40px;height:40px;background:var(--whatsapp);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">💬</span>
               <div><span style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">WhatsApp</span>Mesaj Gönderin</div>
             </a>
-            <a href="mailto:teklif@bozoglan.net" style="display:flex;gap:12px;align-items:center;color:rgba(255,255,255,0.8)">
+            <a href="mailto:teklif@firmaadi.com" style="display:flex;gap:12px;align-items:center;color:rgba(255,255,255,0.8)">
               <span style="width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✉️</span>
-              <div><span style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">E-posta</span>teklif@bozoglan.net</div>
+              <div><span style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">E-posta</span>teklif@firmaadi.com</div>
             </a>
           </div>
         </div>
@@ -251,7 +219,7 @@
       <div class="footer-brand"><h3>🪵 Malatya Mobilya</h3><p>15 yıllık deneyim ile Malatya'nın lider mobilya firması.</p><div class="footer-seo-text">Malatya merkez, Battalgazi, Yeşilyurt ve çevre ilçelerde mutfak dolabı, gardırop, ray dolap, TV ünitesi, banyo dolabı, ofis mobilyaları ve özel ölçü mobilya üretimi hizmetleri sunuyoruz.</div></div>
       <div class="footer-col"><h4>Menü</h4><ul class="footer-links"><li><a href="index.html">› Ana Sayfa</a></li><li><a href="hizmetlerimiz.html">› Hizmetlerimiz</a></li><li><a href="projelerimiz.html">› Projelerimiz</a></li><li><a href="galeri.html">› Galeri</a></li><li><a href="teklif-al.html">› Teklif Al</a></li><li><a href="iletisim.html">› İletişim</a></li></ul></div>
       <div class="footer-col"><h4>Hizmetler</h4><ul class="footer-links"><li><a href="hizmetlerimiz.html">› Mutfak Dolapları</a></li><li><a href="hizmetlerimiz.html">› Gardırop</a></li><li><a href="hizmetlerimiz.html">› TV Üniteleri</a></li><li><a href="hizmetlerimiz.html">› Banyo Dolapları</a></li><li><a href="hizmetlerimiz.html">› Ofis Mobilyaları</a></li></ul></div>
-      <div class="footer-col"><h4>İletişim</h4><div class="footer-contact-item"><span class="icon">📞</span><span><a href="tel:+905551112233">0555 111 22 33</a></span></div><div class="footer-contact-item"><span class="icon">✉️</span><span><a href="mailto:teklif@bozoglan.net">teklif@bozoglan.net</a></span></div><div class="footer-contact-item"><span class="icon">📍</span><span>Yeşilyurt / Malatya</span></div></div>
+      <div class="footer-col"><h4>İletişim</h4><div class="footer-contact-item"><span class="icon">📞</span><span><a href="tel:+905551112233">0555 111 22 33</a></span></div><div class="footer-contact-item"><span class="icon">✉️</span><span><a href="mailto:teklif@firmaadi.com">teklif@firmaadi.com</a></span></div><div class="footer-contact-item"><span class="icon">📍</span><span>Yeşilyurt / Malatya</span></div></div>
     </div>
     <div class="footer-bottom"><p>© 2024 Malatya Mobilya Üretim &amp; Dekorasyon.</p></div>
   </div>
