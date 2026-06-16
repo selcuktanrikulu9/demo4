@@ -25,23 +25,22 @@ input:-webkit-autofill:active {
     @media(max-width:900px){
       .teklif-grid { grid-template-columns: 1fr !important; }
     }
+  
+.teklif-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: start;
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .teklif-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 
-<style>
-@media (min-width: 769px) {
-  .teklif-layout {
-    display: grid !important;
-    grid-template-columns: 1.4fr 1fr !important;
-    gap: 40px;
-    align-items: start;
-  }
-}
-@media (max-width: 768px) {
-  .teklif-layout {
-    grid-template-columns: 1fr !important;
-  }
-}
-</style>
 </head>
 <body>
 
@@ -104,7 +103,7 @@ input:-webkit-autofill:active {
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start;min-width:0;width:100%;box-sizing:border-box" class="teklif-layout">
+    <div class="teklif-layout">
 
       <!-- FORM -->
       <div class="quote-form-wrap fade-in">
